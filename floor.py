@@ -1,6 +1,7 @@
 class Floor():
 
-    def __init__(self, level) -> None:
+    def __init__(self, id: int, level: int) -> None:
+        self.id = id
         self.level = level
         self.inside = []
         self.childs = []
