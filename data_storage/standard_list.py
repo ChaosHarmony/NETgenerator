@@ -1,3 +1,5 @@
+INTERIOR_LOBBY = ["File DV6", "Password DV6",
+                  "Password DV8", "Skunk", "Wisp", "Killer"]
 INTERIOR_BASIC = ["Hellhound", "Sabertooth", "Raven x2", "Hellhound", "Wisp", "Raven", "Password DV6",
                   "File DV6", "Control Node DV6", "Password DV6", "Skunk", "Asp", "Scorpion", "Killer, Skunk", "Wisp x3", "Liche"]
 INTERIOR_STANDART = ["Hellhound x2", "Hellhound, Killer", "Skunk x2", "Sabertooth", "Scorpion", "Hellhound", "Password DV8",
