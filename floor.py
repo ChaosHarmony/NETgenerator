@@ -32,6 +32,8 @@ class NET():
         self.floors = floors_list
         self.depth = max([floors_list[i].level for i in range(self.n_floors)])
         self.id = [floors_list[i].id for i in range(self.n_floors)]
+        self.children_id = [[child.id for child in self.floors[i].childs]
+                            for i in range(self.n_floors)]
 
     def id_to_index(self, floor_id):
         return np.where(floor_id == self.id)

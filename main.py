@@ -1,6 +1,6 @@
 from random import choice
 import numpy as np
-from floor import Floor
+from floor import Floor, NET
 
 
 ########### RANDOM DICE THROW #############
@@ -120,5 +120,9 @@ if TEST:
     print('node 1,2,3,4,5,6 levels = ', tab)
     print('is correct : ', tab == [1, 2, 3, 4, 5, 4])
 
-    Net = construct_NET()
-    print(Net)
+    for i in range(3):
+        Net = NET(construct_NET())
+        print("Net is of number of floor : ", Net.n_floors)
+        print("Net is deep of :", Net.depth)
+        print("Net id is :", Net.id)
+        print("Net has children :", Net.children_id)
