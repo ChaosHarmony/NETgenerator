@@ -6,19 +6,19 @@ from floor import Floor
 ########### RANDOM DICE THROW #############
 
 
-def throw_1d6():
+def roll_1d6():
     return np.random.randint(6)+1
 
 
-def throw_3d6():
-    return throw_1d6()+throw_1d6()+throw_1d6()
+def roll_3d6():
+    return roll_1d6()+roll_1d6()+roll_1d6()
 
 
-def throw_1d10():
+def roll_1d10():
     return np.random.randint(10)+1
 
 
-def throw_branch(branches_number, n=3):
+def roll_branch(branches_number, n=3):
     '''
     Branch 1 is n times more likely
     '''
@@ -32,26 +32,29 @@ def throw_branch(branches_number, n=3):
 ############################################
 
 def get_floors_number():
-    return throw_3d6()
+    return roll_3d6()
 
 
 def get_branches_number(floors_number):
 
     max_branches_number = floors_number - 4
     branches_number = 0
-    while (throw_1d10 >= 7 and branches_number <= max_branches_number):
+    while (roll_1d10() >= 7 and branches_number <= max_branches_number):
         branches_number += 1
 
     return branches_number+1
 
 
-def breadth_update_level(queue: list, level: int = 1) -> None:
+def breadth_update_level(queue: list, level: int = 1):
+
+    new_queue = []
     for floor in queue:
         floor.level = level
-        for child in floor.child:
-            queue.append(child)
-    while queue != []:
-        breadth_update_level(queue, level+1)
+        for child in floor.childs:
+            new_queue.append(child)
+
+    if new_queue != []:
+        breadth_update_level(new_queue, level+1)
     return None
 
 
@@ -60,37 +63,62 @@ def construct_NET():
     ## SET UP ##
     floors_number = get_floors_number()
     branches_number = get_branches_number(floors_number)
-    branches = np.empty(branches_number, dtype=list)
+    all_floor = np.empty(floors_number, dtype=object)
+    bottom_branch = []
+    # Filling the NET
+    for id in range(floors_number):
+        all_floor[id] = Floor(id+1, 1)
 
-    ## Force 1 and 2 to be on branch 0 ##
-    branches[0].append(Floor(1, 1))
-    branches[0].append(Floor(2, 2))
+    # root of the tree
+    all_floor[0].add_child(all_floor[1])
+    all_floor[1].add_child(all_floor[2])
 
-    ## Force next branches to be at least of one ##
+    bottom_branch.append(all_floor[2])
+    # forcing one floor in each branch :
     for branch in range(1, branches_number):
-        branches[branch].append(Floor(branch+2, 1))
+        all_floor[2].add_child(all_floor[branch+2])
+        bottom_branch.append(all_floor[branch+2])
 
-    # randomly spread floors id in each branch
-    for id in range(branches_number+1, floors_number):
-        selected_branch = throw_branch(branches_number)
-        branches[selected_branch].append(
-            Floor(id+1, len(branches[selected_branch])+1))
+    # choosing randomly where nods goes in which branch
+    for id in range(branches_number+2, floors_number):
+        selected_branch = roll_branch(branches_number)-1
+        parent_of_current_floor = bottom_branch[selected_branch]
+        parent_of_current_floor.add_child(all_floor[id])
+        bottom_branch[selected_branch] = all_floor[id]
 
-    # randomly attach branches respecting conditions
-    attached = branches[0]
-    for branch in range(1, branches_number):
-        selected = choice(attached)
-        while(selected.id == 1 or selected.id == 2):
-            selected = choice(attached)
-        selected.add_child(branch[0])
-        attached.append(branches(branch))
+    breadth_update_level([all_floor[0]])
 
-    # finalize with child depedencies
+    return all_floor
 
-    for branch in range(branches_number):
-        for index in range(1, len(branches[branch])):
-            branches[branch][index-1].add_child(branches[branch][index])
 
-    breadth_update_level(branches[0][0])
+################################################ TESTING RANGE ##########################################
+TEST = True
 
-    return branches.flat()
+
+if TEST:
+    print("------------------------------------")
+    print("Welcome to testing range")
+    print("------------------------------------")
+
+    root1 = Floor(1, 1)
+    node2 = Floor(2, 1)
+    node3 = Floor(3, 1)
+    branche4 = Floor(4, 1)
+    branche5 = Floor(5, 1)
+    node6 = Floor(6, 1)
+
+    root1.add_child(node2)
+    node2.add_child(node3)
+    node3.add_child(node6)
+    node3.add_child(branche4)
+    branche4.add_child(branche5)
+
+    print("number 3 childs : ", node3.childs)
+    breadth_update_level([root1])
+    tab = [root1.level, node2.level, node3.level,
+           branche4.level, branche5.level, node6.level]
+    print('node 1,2,3,4,5,6 levels = ', tab)
+    print('is correct : ', tab == [1, 2, 3, 4, 5, 4])
+
+    Net = construct_NET()
+    print(Net)
