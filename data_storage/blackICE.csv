@@ -1,0 +1,7 @@
+name;class;perception;speed;attack;defense;REZ;effect;icon;cost
+Asp;Anti-personnel;4;6;2;2;15;Destroys a single Program installed on the enemy Netrunner's Cyberdeck at random;Golden, Egyptian, cobra, spitting beams of neon green light;100
+Giant;Anti-personnel;2;2;8;4;25;3d6 direct to brain, Netrunner is forcibly and unsafely jacked-out (do not suffer from the giant jack out effect);A massive pair of feet and ankle tower above the Netrunner;1000
+Hellhound;Anti-personnel;6;6;6;2;20;2d6 direct, Unless insulated cyberdeck and clothes catchs fire (need a meat action to bypass), 2dmg per round of fire, cannot stack;A huge, black metal wolf, it eyes glow white and fire runs in ripples all over its body, it speaks in grating, metallic voice, repeating Netrunner's name;500
+Kraken;Anti-personnel;6;2;8;4;30;3d6 direct, until the end of Netrunner's turn, they cannot change floor or safely jack out;A mass of trashing, orange tentacles protruding from the walls, their suckers are covered in sticky red goop;1000
+Liche;Anti-personnel;8;2;6;2;25;Netrunner's INT, REF, and DE are lwered by 1d6 for 1hour, effect are psychomatic (not permanent effects);Metallic skeleton draped in black robes, its hands are studded with blackened rings that soark electricity;500
+Raven;Anti-personnel;6;4;4;2;15;Derezzes a single defender program at random and inflict 1d6 direct damage; Raven adorned in plate armor wielding a glowing white lance;50
