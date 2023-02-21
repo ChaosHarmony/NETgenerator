@@ -7,7 +7,7 @@ class Floor():
         self.id = id
         self.level = level
         self.inside = []
-        self.childs = []
+        self.children = []
 
     def add_child(self, child_floor):
         '''
@@ -32,7 +32,7 @@ class NET():
         self.floors = floors_list
         self.depth = max([floors_list[i].level for i in range(self.n_floors)])
         self.id = [floors_list[i].id for i in range(self.n_floors)]
-        self.children_id = [[child.id for child in self.floors[i].childs]
+        self.children_id = [[child.id for child in self.floors[i].children]
                             for i in range(self.n_floors)]
 
     def id_to_index(self, floor_id):

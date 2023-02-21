@@ -50,7 +50,7 @@ def breadth_first_update_level(queue: list, level: int = 1):
     new_queue = []
     for floor in queue:
         floor.level = level
-        for child in floor.childs:
+        for child in floor.children:
             new_queue.append(child)
 
     if new_queue != []:
@@ -93,7 +93,7 @@ def construct_NET():
     ################################################ TESTING RANGE ##########################################
 
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     print("------------------------------------")
     print("Welcome to testing range")
     print("------------------------------------")
@@ -111,7 +111,7 @@ if __name__ =="__main__":
     node3.add_child(branche4)
     branche4.add_child(branche5)
 
-    print("number 3 childs : ", node3.childs)
+    print("number 3 childs : ", node3.children)
     breadth_first_update_level([root1])
     tab = [root1.level, node2.level, node3.level,
            branche4.level, branche5.level, node6.level]
