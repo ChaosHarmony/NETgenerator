@@ -45,7 +45,7 @@ def get_branches_number(floors_number):
     return branches_number+1
 
 
-def breadth_update_level(queue: list, level: int = 1):
+def breadth_first_update_level(queue: list, level: int = 1):
 
     new_queue = []
     for floor in queue:
@@ -54,7 +54,7 @@ def breadth_update_level(queue: list, level: int = 1):
             new_queue.append(child)
 
     if new_queue != []:
-        breadth_update_level(new_queue, level+1)
+        breadth_first_update_level(new_queue, level+1)
     return None
 
 
@@ -86,16 +86,14 @@ def construct_NET():
         parent_of_current_floor.add_child(all_floor[id])
         bottom_branch[selected_branch] = all_floor[id]
 
-    breadth_update_level([all_floor[0]])
+    breadth_first_update_level([all_floor[0]])
 
     return all_floor
 
-
-################################################ TESTING RANGE ##########################################
-TEST = True
+    ################################################ TESTING RANGE ##########################################
 
 
-if TEST:
+if __name__ =="__main__":
     print("------------------------------------")
     print("Welcome to testing range")
     print("------------------------------------")
@@ -114,7 +112,7 @@ if TEST:
     branche4.add_child(branche5)
 
     print("number 3 childs : ", node3.childs)
-    breadth_update_level([root1])
+    breadth_first_update_level([root1])
     tab = [root1.level, node2.level, node3.level,
            branche4.level, branche5.level, node6.level]
     print('node 1,2,3,4,5,6 levels = ', tab)
